@@ -1,0 +1,14 @@
+Hello! My name is Martin and today I'm going to interview about our project!
+Can you please introduce yourself?
+-My name is Radolina and I'm a student at Fontys.
+What are your hobbies?
+-Mainly going out with friends going on walks and sometimes traveling 
+Would you be interested to learn more about art or particularly paintings? 
+-Usually when I'm in museums they have the disreal long descriptions and they take a long time to read all the information and if there was a way to learn more about them in a more interactive way without all this useless information that would be nice 
+Have you ever used an app to find the details about specific painting do you think it would be useful if one existed or would you use it? 
+-Yeah I would definitely use 1 of those when I'm traveling and visiting museums?
+What kind of functionality do you want to have in such an app? 
+-Well it would be nice if there is a functionality where I can scan a different piece of art and not have to Google it or something like that or also if I can search for it by the name and also if it contains like an important information like the creator of the piece of art the The year the piece was created which era it was influenced by it I would say it would be nice if the app showed us some interesting fact about the artist 
+OK thank you how do you imagine the design to look?
+-The more simple is probably gonna be the best
+OK thank you for your time I'm going to forward this to my team and we're going to get to work
