@@ -7,20 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F937088B2A14E43E007A1F25 /* InfoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F937088A2A14E43E007A1F25 /* InfoPage.swift */; };
 		F9CEF0B22A12A56400119B32 /* ArtDetectiveApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CEF0B12A12A56400119B32 /* ArtDetectiveApp.swift */; };
 		F9CEF0B42A12A56400119B32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CEF0B32A12A56400119B32 /* ContentView.swift */; };
 		F9CEF0B62A12A56600119B32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9CEF0B52A12A56600119B32 /* Assets.xcassets */; };
 		F9CEF0B92A12A56600119B32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9CEF0B82A12A56600119B32 /* Preview Assets.xcassets */; };
 		F9CEF0C02A12A5BE00119B32 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CEF0BF2A12A5BE00119B32 /* HomeView.swift */; };
+		F9CEF0C62A1430DC00119B32 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CEF0C52A1430DC00119B32 /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F937088A2A14E43E007A1F25 /* InfoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPage.swift; sourceTree = "<group>"; };
 		F9CEF0AE2A12A56400119B32 /* ArtDetective.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtDetective.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CEF0B12A12A56400119B32 /* ArtDetectiveApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtDetectiveApp.swift; sourceTree = "<group>"; };
 		F9CEF0B32A12A56400119B32 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F9CEF0B52A12A56600119B32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9CEF0B82A12A56600119B32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F9CEF0BF2A12A5BE00119B32 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F9CEF0C52A1430DC00119B32 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 				F9CEF0B52A12A56600119B32 /* Assets.xcassets */,
 				F9CEF0B72A12A56600119B32 /* Preview Content */,
 				F9CEF0BF2A12A5BE00119B32 /* HomeView.swift */,
+				F9CEF0C52A1430DC00119B32 /* CameraView.swift */,
+				F937088A2A14E43E007A1F25 /* InfoPage.swift */,
 			);
 			path = ArtDetective;
 			sourceTree = "<group>";
@@ -140,9 +146,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F937088B2A14E43E007A1F25 /* InfoPage.swift in Sources */,
 				F9CEF0C02A12A5BE00119B32 /* HomeView.swift in Sources */,
 				F9CEF0B42A12A56400119B32 /* ContentView.swift in Sources */,
 				F9CEF0B22A12A56400119B32 /* ArtDetectiveApp.swift in Sources */,
+				F9CEF0C62A1430DC00119B32 /* CameraView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,13 +279,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ArtDetective/Preview Content\"";
+				DEVELOPMENT_TEAM = 4DU4YJ8HLU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,13 +310,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ArtDetective/Preview Content\"";
+				DEVELOPMENT_TEAM = 4DU4YJ8HLU;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

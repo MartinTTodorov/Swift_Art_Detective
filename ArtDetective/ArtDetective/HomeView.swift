@@ -21,27 +21,27 @@ struct CreateBgStyle: ButtonStyle{
 struct HomeView: View {
     
     var body: some View {
-        VStack{
-            Image("logo")
-        
-            
-            Button(action:{
+        NavigationView{
+            VStack{
+                Image("logo")
                 
-            }){
-                HStack {
-                    Text("Start scaning")
-                        .font(.title)
-                        .bold()
-                    Image(systemName: "camera")
-                        .font(.title)
-                        .bold()
+                NavigationLink(destination: CameraView()){
+                  
+                        HStack {
+                            Text("Start scaning")
+                                .font(.title)
+                                .bold()
+                            Image(systemName: "camera")
+                                .font(.title)
+                                .bold()
+                        }
+                        
+                    
                 }
-                
             }
-            .buttonStyle(CreateBgStyle())
+            
             
         }
-        
         
     }
     
