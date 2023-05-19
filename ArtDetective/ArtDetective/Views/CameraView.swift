@@ -18,13 +18,15 @@ struct CameraView_Previews: PreviewProvider {
 }
 
 struct CameraView: View{
+    
+    @State var show = false
     @StateObject var camera = CameraModel()
     
     var body: some View {
         ZStack{
+            
             CameraPreview(camera: camera)
                 .ignoresSafeArea(.all, edges: .all)
-            
             VStack{
                 
                 if camera.isTaken{
@@ -32,7 +34,7 @@ struct CameraView: View{
                         
                         Spacer()
                         
-                        Button(action: {}, label: {
+                        Button(action: camera.retakePhoto, label: {
                             Image(systemName: "arrow.triangle.2.circlepath.camera")
                                 .foregroundColor(.black)
                                 .padding()
@@ -49,8 +51,8 @@ struct CameraView: View{
                     
                     HStack{
                         if camera.isTaken{
-                            Button(action: {}, label: {
-                                Text("Save")
+                            Button(action: {if !camera.isSaved{camera.savePic()}}, label: {
+                                Text(camera.isSaved ? "Saved":"Save")
                                     .foregroundColor(.black)
                                     .fontWeight(.semibold)
                                     .padding(.vertical, 10)
@@ -61,6 +63,17 @@ struct CameraView: View{
                             .padding(.leading)
                             
                             Spacer()
+                            
+                            NavigationLink(destination: InfoPage()){
+                                Text("Scan")
+                                    .foregroundColor(.black)
+                                    .fontWeight(.semibold)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 20)
+                                    .background(Color.white)
+                                    .clipShape(Capsule())
+                                    .padding(.leading)
+                            }
                             
                         }
                         else{
@@ -82,8 +95,12 @@ struct CameraView: View{
         .onAppear(perform: {
             camera.Check()
         })
+            }
         }
-    }
+        
+    
+    
+    
     
     class CameraModel : NSObject, ObservableObject, AVCapturePhotoCaptureDelegate{
         @Published var isTaken = false
@@ -95,6 +112,10 @@ struct CameraView: View{
         @Published var output = AVCapturePhotoOutput()
         
         @Published var preview :  AVCaptureVideoPreviewLayer!
+        
+        @Published var isSaved = false
+        
+        @Published var picData = Data(count: 0)
         
         func Check(){
             //check camera permission
@@ -170,16 +191,31 @@ struct CameraView: View{
                     
                     DispatchQueue.main.async {
                         withAnimation{self.isTaken.toggle()}
+                        
+                        self.isSaved = false
                     }
                 }
         }
         
-        func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto: AVCapturePhoto,  error:Error?) {
+        func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto,  error:Error?) {
             
             if error != nil{
                 return
             }
             print("picture taken...")
+            
+            guard let imageData = photo.fileDataRepresentation() else{return}
+            self.picData = imageData
+        }
+        
+        func savePic(){
+            let image = UIImage(data: self.picData)!
+            
+            UIImageWriteToSavedPhotosAlbum(image,nil, nil, nil)
+            
+            self.isSaved = true
+            
+            print("Pic saved")
         }
     }
 
