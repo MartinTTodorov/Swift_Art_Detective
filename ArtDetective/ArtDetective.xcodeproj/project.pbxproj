@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F60E6C72A1A1F7600B69203 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F60E6C62A1A1F7600B69203 /* Secret.swift */; };
+		3FED890A2A18D5B4001D3906 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3FED89092A18D5B4001D3906 /* OpenAISwift */; };
 		F9080A3A2A16CA8A00A2123B /* Painting.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9080A392A16CA8A00A2123B /* Painting.swift */; };
 		F9080A3E2A1791DC00A2123B /* ArtClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F9080A3D2A1791DC00A2123B /* ArtClassifier.mlmodel */; };
 		F9080A402A1796CF00A2123B /* Detector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9080A3F2A1796CF00A2123B /* Detector.swift */; };
@@ -21,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F60E6C62A1A1F7600B69203 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		F9080A392A16CA8A00A2123B /* Painting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Painting.swift; sourceTree = "<group>"; };
 		F9080A3D2A1791DC00A2123B /* ArtClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ArtClassifier.mlmodel; sourceTree = "<group>"; };
 		F9080A3F2A1796CF00A2123B /* Detector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detector.swift; sourceTree = "<group>"; };
@@ -40,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FED890A2A18D5B4001D3906 /* OpenAISwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +96,7 @@
 				F9CEF0B72A12A56600119B32 /* Preview Content */,
 				F9080A382A16CA5700A2123B /* Views */,
 				F9080A432A17971000A2123B /* Models */,
+				3F60E6C62A1A1F7600B69203 /* Secret.swift */,
 			);
 			path = ArtDetective;
 			sourceTree = "<group>";
@@ -120,6 +125,9 @@
 			dependencies = (
 			);
 			name = ArtDetective;
+			packageProductDependencies = (
+				3FED89092A18D5B4001D3906 /* OpenAISwift */,
+			);
 			productName = ArtDetective;
 			productReference = F9CEF0AE2A12A56400119B32 /* ArtDetective.app */;
 			productType = "com.apple.product-type.application";
@@ -148,6 +156,9 @@
 				Base,
 			);
 			mainGroup = F9CEF0A52A12A56400119B32;
+			packageReferences = (
+				3FED89082A18D5B4001D3906 /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+			);
 			productRefGroup = F9CEF0AF2A12A56400119B32 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -178,6 +189,7 @@
 				F9CEF0C02A12A5BE00119B32 /* HomeView.swift in Sources */,
 				F9080A3E2A1791DC00A2123B /* ArtClassifier.mlmodel in Sources */,
 				F9080A422A17970900A2123B /* ImagePicker.swift in Sources */,
+				3F60E6C72A1A1F7600B69203 /* Secret.swift in Sources */,
 				F9080A402A1796CF00A2123B /* Detector.swift in Sources */,
 				F9CEF0B42A12A56400119B32 /* ContentView.swift in Sources */,
 				F9080A3A2A16CA8A00A2123B /* Painting.swift in Sources */,
@@ -389,6 +401,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3FED89082A18D5B4001D3906 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3FED89092A18D5B4001D3906 /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FED89082A18D5B4001D3906 /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F9CEF0A62A12A56400119B32 /* Project object */;
 }
