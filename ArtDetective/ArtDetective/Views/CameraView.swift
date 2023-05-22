@@ -1,109 +1,111 @@
-//
-//  CameraView.swift
-//  ArtDetective
-//
-//  Created by Radolina on 16/05/2023.
-//
-
 import SwiftUI
 import AVFoundation
 
-
-
-
-struct CameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraView()
-    }
-}
-
-struct CameraView: View{
-    
+struct CameraView: View {
+    @State var isPresenting: Bool = false
+    @State var uiImage: UIImage?
+    @State var sourceType: UIImagePickerController.SourceType = .camera
     @State var show = false
     @StateObject var camera = CameraModel()
-    
+    @ObservedObject var classifier: ImageClassifier
+
     var body: some View {
-        ZStack{
-            
+        ZStack {
             CameraPreview(camera: camera)
-                .ignoresSafeArea(.all, edges: .all)
-            VStack{
-                
-                if camera.isTaken{
+            
+            VStack {
+                if camera.isTaken {
                     HStack {
-                        
                         Spacer()
                         
-                        Button(action: camera.retakePhoto, label: {
+                        Button(action: camera.retakePhoto) {
                             Image(systemName: "arrow.triangle.2.circlepath.camera")
                                 .foregroundColor(.black)
                                 .padding()
                                 .background(Color.white)
                                 .clipShape(Circle())
-                        })
+                        }
                         .padding(.trailing, 10)
                     }
-                    
-                    
                 }
-                    
-                    Spacer()
-                    
-                    HStack{
-                        if camera.isTaken{
-                            Button(action: {if !camera.isSaved{camera.savePic()}}, label: {
-                                Text(camera.isSaved ? "Saved":"Save")
-                                    .foregroundColor(.black)
-                                    .fontWeight(.semibold)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 20)
-                                    .background(Color.white)
-                                    .clipShape(Capsule())
-                            })
-                            .padding(.leading)
-                            
-                            Spacer()
-                            
-                            NavigationLink(destination: InfoPage()){
-                                Text("Scan")
-                                    .foregroundColor(.black)
-                                    .fontWeight(.semibold)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 20)
-                                    .background(Color.white)
-                                    .clipShape(Capsule())
-                                    .padding(.leading)
-                            }
-                            
+                
+                Spacer()
+                
+                HStack {
+                    if camera.isTaken {
+                        Button(action: { if !camera.isSaved { camera.savePic() } }) {
+                            Text(camera.isSaved ? "Saved" : "Save")
+                                .foregroundColor(.black)
+                                .fontWeight(.semibold)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 20)
+                                .background(Color.white)
+                                .clipShape(Capsule())
                         }
-                        else{
-                            Button(action: camera.takePic, label: {
-                                ZStack{
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 65, height: 65)
-                                    Circle()
-                                        .stroke(Color.white, lineWidth: 2)
-                                        .frame(width: 75, height: 75)
-                                }
-                            })
+                        .padding(.leading)
+                        
+                        Spacer()
+                        
+                        if let imageClass = classifier.imageClass {
+                            InfoPage(imageClass: imageClass)
+                                .frame(
+                                    minWidth: 0,
+                                    maxWidth: .infinity
+                                )
+                                .padding(30)
+                        }
+                                
+                            
+                    } else {
+                        Button(action: {camera.takePic()}) {
+                            ZStack {
+                                Circle()
+                                    .fill(Color.white)
+                                    .frame(width: 65, height: 65)
+                                Circle()
+                                    .stroke(Color.white, lineWidth: 2)
+                                    .frame(width: 75, height: 75)
+                            }
                         }
                     }
-                    .frame(height: 75)
                 }
-            }
-        .onAppear(perform: {
-            camera.Check()
-        })
+                .frame(height: 75)
             }
         }
+        .onAppear {
+            camera.Check()
+            
+        }
         
+        .sheet(isPresented: $isPresenting){
+            ImagePicker(uiImage: $uiImage, isPresenting:  $isPresenting, sourceType: $sourceType)
+                .onDisappear{
+                    if uiImage != nil {
+                        classifier.detect(uiImage: uiImage!)
+                    }
+                }
+                
+            
+            
+            
+        }
+    }
     
+    
+}
+
+struct CameraView_Previews: PreviewProvider {
+    static var previews: some View {
+        CameraView(classifier: ImageClassifier())
+    }
+}
+
+
     
     
     
     class CameraModel : NSObject, ObservableObject, AVCapturePhotoCaptureDelegate{
-        @Published var isTaken = false
+        @Published public var isTaken = false
         
         @Published var session = AVCaptureSession()
         
@@ -116,6 +118,12 @@ struct CameraView: View{
         @Published var isSaved = false
         
         @Published var picData = Data(count: 0)
+        
+        @Published var image : UIImage?
+        
+        @Published var classifier = ImageClassifier()
+        
+       
         
         func Check(){
             //check camera permission
@@ -171,18 +179,25 @@ struct CameraView: View{
         }
         //take and retake func
         
-        
-        
         func takePic(){
-            DispatchQueue.global(qos: .background).async {
+
+            DispatchQueue.global(qos: .background).async { [self] in
                 self.output.capturePhoto(with: AVCapturePhotoSettings(),delegate: self)
                 self.session.stopRunning()
                 
                 DispatchQueue.main.async {
+                    
                     withAnimation{self.isTaken.toggle()}
+                    
                 }
+                
+                
+                
             }
+
         }
+        
+        
         
         func retakePhoto(){
             DispatchQueue
@@ -206,6 +221,9 @@ struct CameraView: View{
             
             guard let imageData = photo.fileDataRepresentation() else{return}
             self.picData = imageData
+            self.image = UIImage(data: self.picData)
+            
+                
         }
         
         func savePic(){
@@ -240,3 +258,4 @@ struct CameraPreview: UIViewRepresentable{
         
     }
 }
+

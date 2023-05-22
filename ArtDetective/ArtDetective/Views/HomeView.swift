@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
- 
+
 struct CreateBgStyle: ButtonStyle{
     func makeBody(configuration: Self.Configuration)->some View{
         configuration.label.frame(minWidth: 0, maxWidth: .infinity)
@@ -25,7 +25,7 @@ struct HomeView: View {
             VStack{
                 Image("logo")
                 
-                NavigationLink(destination: CameraView()){
+                NavigationLink(destination: TestScanView(classifier: ImageClassifier())){
                   
                         HStack {
                             Text("Start scaning")
@@ -38,6 +38,7 @@ struct HomeView: View {
                         
                     
                 }
+                .buttonStyle(CreateBgStyle())
             }
             
             

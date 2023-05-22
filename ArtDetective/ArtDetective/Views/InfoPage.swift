@@ -1,3 +1,10 @@
+//
+//  InfoPage.swift
+//  ArtDetective
+//
+//  Created by Radolina on 17/05/2023.
+//
+
 import SwiftUI
 import OpenAISwift
 
@@ -21,111 +28,146 @@ final class InfoPageViewModel: ObservableObject {
     }
 }
 
+
 struct InfoPage: View {
     @StateObject private var viewModel = InfoPageViewModel()
     @State private var showPOV = false
     @State private var povResponse = ""
 
+    let infoProvider = InfoProvider()
+        let imageClass: String
+    @State var show = false
     var body: some View {
-        ZStack {
-            NavigationView {
-                VStack(alignment: .center) {
+        
+        ZStack{
+            NavigationView{
+                
+                VStack(alignment: .center){
+                    
                     Image("logo")
                         .resizable()
                         .frame(width: 120, height: 120)
-
+                    
                     Spacer()
-
-                    HStack {
+                    
+                    HStack{
+                        
                         Image(systemName: "paintbrush.pointed")
-                            .renderingMode(.original)
-                            .resizable()
+                            .renderingMode(.original).resizable()
                             .frame(width: 38, height: 32)
                             .offset(x: -2)
                             .padding()
-                        Text("Author:")
+                        Text("Painting:")
                             .font(.title2)
-                        Text("Leonardo da Vinci")
+                        Text(infoProvider.art(for: imageClass))
                             .font(.title3)
                             .bold()
+                        
                     }
                     .foregroundColor(Color("LogoBlue"))
+                    
                     .padding()
-
-                    HStack {
+                    
+                    
+                    HStack{
                         Image(systemName: "timelapse")
-                            .renderingMode(.original)
-                            .resizable()
+                            .renderingMode(.original).resizable()
                             .frame(width: 38, height: 32)
                             .offset(x: -2)
                             .padding()
                         Text("Period:")
                             .font(.title2)
-                        Text("1400-1412")
+                        Text(infoProvider.artYear(for: imageClass))
                             .font(.title3)
                             .bold()
                     }
                     .foregroundColor(Color("LogoYellow"))
                     .padding()
-
-                    HStack {
-                        Image(systemName: "clipboard")
-                            .renderingMode(.original)
-                            .resizable()
+                    HStack{
+                        Image(systemName: "person")
+                            .renderingMode(.original).resizable()
                             .frame(width: 38, height: 32)
                             .offset(x: -2)
                             .padding()
-                        Text("Story:")
+                        Text("Author:")
                             .font(.title2)
-                        Text("Long story short")
+                        Text(infoProvider.artistName(for: imageClass))
+                            .font(.title3)
+                            .bold()
+                    }
+                    .foregroundColor(Color("LogoPurple"))
+                    .padding()
+                    HStack{
+                        Image(systemName: "clipboard")
+                            .renderingMode(.original).resizable()
+                            .frame(width: 38, height: 32)
+                            .offset(x: -2)
+                            .padding()
+                        Text("Style:")
+                            .font(.title2)
+                        Text(infoProvider.style(for: imageClass))
                             .font(.title3)
                             .bold()
                     }
                     .foregroundColor(Color("LogoRed"))
                     .padding()
-
-                    Button(action: {
-                        fetchPOV()
-                    }) {
-                        HStack {
-                            Text("See POV")
-                                .font(.title)
-                                .bold()
+                        Button(action:{
+                            
+                        withAnimation{
+                            fetchPOV()
+                            self.show.toggle()
                         }
-                    }
-                    .buttonStyle(CreateBgStyle())
-                    .padding()
+                            
+                        }){
+                            HStack {
+                                Text("See POV")
+                                    .font(.title)
+                                    .bold()
+                                
+                            }
+                            
+                        }
+                        .buttonStyle(CreateBgStyle())
+                        .padding()
+                                        
+                    
                 }
             }
-            if showPOV {
-                GeometryReader { _ in
+            if self.show{
+                GeometryReader{_ in
+                    Spacer()
                     POVView(povText: povResponse)
                 }
+                .padding(.top, 150)
                 .background(Color.black.opacity(0.65))
                 .onTapGesture {
-                    withAnimation {
-                        showPOV.toggle()
+                    withAnimation{
+                        self.show.toggle()
                     }
                 }
             }
         }
     }
-
+    
     private func fetchPOV() {
-        viewModel.send(text: "What is the POV of the author?") { response in
-            DispatchQueue.main.async {
-                povResponse = response
-                showPOV.toggle()
+        viewModel.send(text: "Give me the POV as if you are \(infoProvider.artistName(for: imageClass)) for making \(infoProvider.art(for: imageClass)) in 5 sentences, just as plain text and don't write anything else") { response in
+                DispatchQueue.main.async {
+                    povResponse = response
+                    showPOV.toggle()
+                }
             }
         }
-    }
 }
+
+
+
 
 struct InfoPage_Previews: PreviewProvider {
     static var previews: some View {
-        InfoPage()
+        InfoPage(imageClass: "The Starry Night, 1889")
     }
 }
+
 
 struct POVView: View {
     let povText: String
@@ -141,7 +183,7 @@ struct POVView: View {
             HStack(spacing: 12) {
                 Text(povText)
                     .multilineTextAlignment(.center)
-                    .padding()
+                    .padding(.bottom, 50)
             }
         }
         .padding()
